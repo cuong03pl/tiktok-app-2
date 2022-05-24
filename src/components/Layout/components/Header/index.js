@@ -4,9 +4,10 @@ import images from '~/assets/img';
 import React, { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner, faMagnifyingGlass, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper as ProperWrapper } from '~/components/Proper';
 import AccoutItem from '~/components/AccountItem';
+import Button from '~/components/Button';
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -45,7 +46,12 @@ function Header() {
                         </button>
                     </div>
                 </Tippy>
-                <div className={cx('action')}></div>
+                <div className={cx('action')}>
+                    <Button uploadBtn leftIcon={<FontAwesomeIcon icon={faCheck} />}>
+                        Tải lên
+                    </Button>
+                    <Button primary>Đăng nhập</Button>
+                </div>
             </div>
         </header>
     );

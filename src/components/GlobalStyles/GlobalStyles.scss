@@ -5,6 +5,7 @@
     --primary: #fe2c55;
     --black: #000;
     --text-color: #ccc;
+    --white: #fff;
     // Default layout
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
@@ -32,7 +33,7 @@ input {
     outline: none;
     background: none;
 }
-a[herf] {
+a[href] {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--white);
 }
