@@ -1,0 +1,22 @@
+.more-menu {
+    width: 230px;
+}
+.menu-btn {
+    color: var(--black) !important;
+    display: block;
+    padding: 10px 12px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 22px;
+    font-weight: 600;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
+
+.menu-wrapper {
+    padding: 9px 0;
+}
