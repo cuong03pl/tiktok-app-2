@@ -25,6 +25,19 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faGlobe} />,
         title: 'Tiếng Việt',
+        children: {
+            title: 'Ngôn ngữ',
+            data: [
+                {
+                    code: 'en',
+                    title: 'Tiếng Anh',
+                },
+                {
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -40,6 +53,10 @@ const MENU_ITEMS = [
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
     useEffect(() => {});
+
+    const handleMenuChange = (menuItems) => {
+        console.log(menuItems);
+    };
     return (
         <header className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -78,7 +95,7 @@ function Header() {
                     </Button>
                     <Button primary>Đăng nhập</Button>
 
-                    <Menu items={MENU_ITEMS}>
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                         <button className={cx('more-btn')}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>
