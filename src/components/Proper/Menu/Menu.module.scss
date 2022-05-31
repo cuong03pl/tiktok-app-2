@@ -28,7 +28,6 @@
     margin-top: -9px;
 }
 .back-btn {
-    margin-left: 24px;
     font-size: 1.6rem;
     height: 100%;
     width: 50px;
@@ -38,4 +37,8 @@
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
+}
+
+.separate {
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
 }

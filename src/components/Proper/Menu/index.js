@@ -9,11 +9,10 @@ import { useState } from 'react';
 const cx = classNames.bind(styles);
 function Menu({ children, items = [], onChange }) {
     const [history, setHistory] = useState([{ data: items }]);
-    console.log('history', history);
+
     const current = history[history.length - 1];
     const renderItems = () => {
         return current.data.map((item, index) => {
-            console.log(item);
             return (
                 <MenuItem
                     key={index}
@@ -29,30 +28,26 @@ function Menu({ children, items = [], onChange }) {
             );
         });
     };
+    const handleBack = () => {
+        setHistory((pre) => pre.slice(0, history.length - 1));
+    };
     return (
         <Tippy
             interactive
-            visible
+            offset={[16, 10]}
             delay={[0, 700]}
             placement="bottom-end"
             render={(attrs) => (
                 <div className={cx('more-menu')} tabIndex="-1" {...attrs}>
                     <ProperWrapper className={cx('menu-wrapper')}>
-                        {history.length > 1 ? (
-                            <Header
-                                title="Ngôn Ngữ"
-                                onBack={() => {
-                                    setHistory((pre) => pre.slice(0, pre.length - 1));
-                                }}
-                            ></Header>
-                        ) : (
-                            ''
-                        )}
+                        {history.length > 1 ? <Header onBack={handleBack} title={'Ngôn Ngữ'}></Header> : ''}
                         {renderItems()}
                     </ProperWrapper>
-                    {console.log('history', history)}
                 </div>
             )}
+            onHide={() => {
+                setHistory((pre) => pre.slice(0, 1));
+            }}
         >
             {children}
         </Tippy>

@@ -1,0 +1,85 @@
+@mixin flexAll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search {
+    position: relative;
+    height: 46px;
+    width: 361px;
+    padding-left: 16px;
+    background: rgba(22, 24, 35, 0.06);
+    border-radius: 92px;
+    display: flex;
+    align-items: center;
+    border: 1.5px solid transparent;
+    &:focus-within {
+        border: 1.5px solid rgba(22, 24, 35, 0.2);
+    }
+    input {
+        flex: 1;
+        width: 252px;
+        caret-color: var(--primary);
+        background: none;
+        outline: none;
+        border: none;
+        color: var(--black);
+        font-size: 1.6rem;
+        font-family: 'IBM Plex Sans', Arial, Tahoma, sans-serif;
+        line-height: 22px;
+        padding: 12px 0;
+        &::placeholder {
+            color: #909090;
+        }
+    }
+    input:not(:placeholder-shown) ~ .search-btn {
+        color: rgba(22, 24, 35, 0.75);
+    }
+}
+.clear,
+.loading {
+    position: absolute;
+    right: 52px;
+    width: 40px;
+    cursor: pointer;
+    color: rgba(22, 24, 35, 0.34);
+}
+.loading {
+    animation: spinner 1s linear infinite;
+}
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.search-btn {
+    width: 52px;
+    height: 100%;
+    cursor: pointer;
+
+    border-bottom-right-radius: 92px;
+    border-top-right-radius: 92px;
+    color: rgba(22, 24, 35, 0.34);
+    @include flexAll;
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+        transition: all ease 0.2s;
+    }
+    font-size: 20px;
+}
+.header-split {
+    height: 28px;
+    width: 1px;
+    background-color: rgba(22, 24, 35, 0.12);
+}
+.search-result {
+    width: 361px;
+}
+.search-title {
+    padding: 5px 12px;
+    height: 30px;
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 1.4rem;
+    font-weight: 600;
+}

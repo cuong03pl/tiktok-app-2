@@ -1,29 +1,37 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets/img';
-import React, { useEffect, useState } from 'react';
-import Tippy from '@tippyjs/react/headless';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCircleXmark,
-    faSpinner,
-    faMagnifyingGlass,
-    faPlus,
-    faCheck,
-    faEllipsisVertical,
-    faGlobe,
-    faCircleQuestion,
-    faKeyboard,
-} from '@fortawesome/free-solid-svg-icons';
-import { Wrapper as ProperWrapper } from '~/components/Proper';
-import AccoutItem from '~/components/AccountItem';
+import React, { Fragment, useEffect, useState } from 'react';
+// tippy
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
+// component
 import Button from '~/components/Button';
 import Menu from '~/components/Proper/Menu';
+import Image from '~/components/Images';
+import Search from '../Search';
+// icons
+import {
+    MessageIcon,
+    MessageBoxIcon,
+    UserIcon,
+    CoinIcon,
+    KeyBoardIcon,
+    SignOutIcon,
+    LanguageIcon,
+    QuestionIcon,
+    SettingIcon,
+    PlusIcon,
+} from '~/components/Icon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
     {
-        icon: <FontAwesomeIcon icon={faGlobe} />,
+        icon: <LanguageIcon width="2rem" height="2rem" />,
         title: 'Tiếng Việt',
         children: {
             title: 'Ngôn ngữ',
@@ -40,65 +48,93 @@ const MENU_ITEMS = [
         },
     },
     {
-        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        icon: <QuestionIcon width="2rem" height="2rem" />,
         title: 'Phản hồi và trợ giúp',
         to: '/feedback',
     },
     {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        icon: <KeyBoardIcon width="2rem" height="2rem" />,
         title: 'Phím tắt trên bàn phím',
     },
 ];
-
+const currentUser = true;
 function Header() {
-    const [searchResult, setSearchResult] = useState([]);
-    useEffect(() => {});
-
-    const handleMenuChange = (menuItems) => {
+    function handleMenuChange(menuItems) {
         console.log(menuItems);
-    };
+    }
+
+    const userMenu = [
+        {
+            icon: <UserIcon width="2rem" height="2rem" />,
+            title: 'Xem hồ sơ',
+            to: '/feedback',
+        },
+        {
+            icon: <CoinIcon width="2rem" height="2rem" />,
+            title: 'Nhận xu',
+            to: '/getcoin',
+        },
+        {
+            icon: <SettingIcon width="2rem" height="2rem" />,
+            title: 'Cài đặt',
+            to: '/setting',
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <SignOutIcon width="2rem" height="2rem" />,
+            title: 'Đăng xuất',
+            separate: true,
+        },
+    ];
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className={cx('logo')}>
                     <img src={images.logo}></img>
                 </div>
-                <Tippy
-                    interactive
-                    render={(attrs) => (
-                        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                            <ProperWrapper>
-                                <h4 className={cx('search-title')}>Accounts</h4>
-                                <AccoutItem></AccoutItem>
-                                <AccoutItem></AccoutItem>
-                                <AccoutItem></AccoutItem>
-                                <AccoutItem></AccoutItem>
-                            </ProperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-                        <input placeholder="Tìm kiếm tài khoản và video" />
-                        <button className={cx('clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-                        <span className={cx('header-split')}></span>
-                        <button className={cx('search-btn')}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
-                </Tippy>
+                <Search></Search>
                 <div className={cx('action')}>
-                    <Button uploadBtn leftIcon={<FontAwesomeIcon icon={faCheck} />}>
-                        Tải lên
-                    </Button>
-                    <Button primary>Đăng nhập</Button>
+                    {currentUser ? (
+                        <Fragment>
+                            <div className={cx('current-user')}>
+                                <Button uploadBtn leftIcon={<PlusIcon height="2rem" width="2rem" />}>
+                                    Tải lên
+                                </Button>
+                                <Tippy content="Tin Nhắn ">
+                                    <button className={cx('user-btn')}>
+                                        <MessageIcon />
+                                    </button>
+                                </Tippy>
+                                <Tippy content="Hộp Thư">
+                                    <button className={cx('user-btn')}>
+                                        <MessageBoxIcon />
+                                    </button>
+                                </Tippy>
+                            </div>
+                        </Fragment>
+                    ) : (
+                        <Fragment>
+                            <Button uploadBtn leftIcon={<PlusIcon height="2rem" width="2rem" />}>
+                                Tải lên
+                            </Button>
+                            <Button primary>Đăng nhập</Button>
+                        </Fragment>
+                    )}
 
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={cx('more-btn')}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <Image
+                                className={cx('avatar-user')}
+                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/122696a9b8641fc9a21490cc904b5b4e~c5_100x100.jpeg?x-expires=1653537600&x-signature=mx%2FhUg3PYgFXS2ImOYPFqz9tuJo%3D"
+                                alt=""
+                                fallBack="https://yt3.ggpht.com/yti/APfAmoESQvyQvqqzJ-OPKPPIcyLBXahoBbfDKwCAt6xP=s88-c-k-c0x00ffffff-no-rj-mo"
+                            />
+                        ) : (
+                            <button className={cx('more-btn')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>

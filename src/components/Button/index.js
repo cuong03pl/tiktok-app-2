@@ -19,7 +19,18 @@ function Button({
     ...passProps
 }) {
     let Comp = 'button';
-    const classes = cx('wrapper', { primary, followBtn, small, big, uploadBtn, disable, round, leftIcon, rightIcon });
+    const classes = cx('wrapper', {
+        primary,
+        followBtn,
+        small,
+        big,
+        uploadBtn,
+        disable,
+        round,
+        leftIcon,
+        rightIcon,
+        flex: leftIcon || rightIcon,
+    });
 
     const props = {
         onClick,
