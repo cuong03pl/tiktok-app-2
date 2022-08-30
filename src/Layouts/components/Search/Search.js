@@ -4,17 +4,17 @@ import { useDebounce } from '~/hooks';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 // components
-import { Wrapper as ProperWrapper } from '~/components/Proper';
-import AccoutItem from '~/components/AccountItem';
+import { Wrapper as ProperWrapper } from '~/components/Proper/Proper';
+import AccoutItem from '~/components/AccountItem/AccountItem';
 // tippy
 import HeaderTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 
 //  icon
-import { SearchIcon, ClearIcon } from '~/components/Icon';
+import { SearchIcon, ClearIcon } from '~/components/Icon/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchServices from '~/Services/searchService';
 
 const cx = classNames.bind(styles);
 
@@ -31,13 +31,12 @@ function Search() {
             setSearchResult([]);
             return;
         }
-
         const fetchApi = async () => {
-            setLoading(true);
-            const result = await searchServices.search(debouned);
-            setSearchResult(result);
-            setLoading(false);
+            const res = await searchServices.search(debouned);
+
+            setSearchResult(res.data);
         };
+
         fetchApi();
     }, [debouned]);
 
@@ -70,7 +69,11 @@ function Search() {
                 <input
                     ref={inputRef}
                     value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={(e) => {
+                        if (!e.target.value.startsWith(' ')) {
+                            setSearchValue(e.target.value);
+                        }
+                    }}
                     onFocus={() => setShowResult(true)}
                     placeholder="Tìm kiếm tài khoản và video"
                 />

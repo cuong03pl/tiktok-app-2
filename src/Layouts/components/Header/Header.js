@@ -1,16 +1,16 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets/img';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 // tippy
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 // component
-import Button from '~/components/Button';
-import Menu from '~/components/Proper/Menu';
-import Image from '~/components/Images';
-import Search from '../Search';
+import Button from '~/components/Button/Button';
+import Menu from '~/components/Proper/Menu/Menu';
+import Image from '~/components/Images/Images';
+import Search from '../Search/Search';
 // icons
 import {
     MessageIcon,
@@ -23,9 +23,11 @@ import {
     QuestionIcon,
     SettingIcon,
     PlusIcon,
-} from '~/components/Icon';
+} from '~/components/Icon/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -90,9 +92,9 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('content')}>
-                <div className={cx('logo')}>
+                <Link to={config.routes.home} className={cx('logo')}>
                     <img src={images.logo}></img>
-                </div>
+                </Link>
                 <Search></Search>
                 <div className={cx('action')}>
                     {currentUser ? (

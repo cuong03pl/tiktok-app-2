@@ -1,52 +1,47 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
+
+import PropTypes from 'prop-types';
+
 const cx = classNames.bind(styles);
+
 function Button({
+    children,
     to,
     href,
-    children,
     primary,
-    followBtn,
-    uploadBtn,
-    small,
-    big,
-    disable,
     round,
-    onClick,
+    disable,
+    uploadBtn,
+    followBtn,
     leftIcon,
     rightIcon,
+    small,
+    big,
+    flex,
+    onClick,
     ...passProps
 }) {
     let Comp = 'button';
     const classes = cx('wrapper', {
         primary,
+        round,
+        disable,
+        uploadBtn,
         followBtn,
         small,
         big,
-        uploadBtn,
-        disable,
-        round,
-        leftIcon,
-        rightIcon,
         flex: leftIcon || rightIcon,
     });
-
-    const props = {
-        onClick,
-        ...passProps,
-    };
-    if (disable) {
-        delete props.onClick;
-    }
+    const props = { onClick, ...passProps };
     if (to) {
         props.to = to;
         Comp = Link;
     } else if (href) {
-        props.href = href;
         Comp = 'a';
+        props.href = href;
     }
-
     return (
         <Comp className={classes} {...props}>
             {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
@@ -56,4 +51,17 @@ function Button({
     );
 }
 
+Button.propsType = {
+    to: PropTypes.string,
+    href: PropTypes.string,
+    primary: PropTypes.bool,
+    round: PropTypes.bool,
+    disable: PropTypes.bool,
+    uploadBtn: PropTypes.bool,
+    followBtn: PropTypes.bool,
+    children: PropTypes.string.isRequired,
+    leftIcon: PropTypes.node,
+    rightIcon: PropTypes.node,
+    onClick: PropTypes.func,
+};
 export default Button;

@@ -1,9 +1,12 @@
+import PropTypes from 'prop-types';
+
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import Images from '../Images';
+import Images from '../Images/Images';
 import styles from './AccoutItem.module.scss';
+
 const cx = classNames.bind(styles);
 
 function AccoutItem({ data }) {
@@ -25,5 +28,7 @@ function AccoutItem({ data }) {
         </Link>
     );
 }
-
+AccoutItem.propTypes = {
+    data: PropTypes.object.isRequired,
+};
 export default AccoutItem;

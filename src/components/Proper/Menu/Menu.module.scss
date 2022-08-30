@@ -3,7 +3,7 @@
 }
 .menu-btn {
     color: var(--black) !important;
-    display: block;
+
     padding: 10px 12px;
     font-size: 1.6rem;
     cursor: pointer;
@@ -25,6 +25,7 @@
     align-items: center;
     position: relative;
     height: 50px;
+    min-height: 50px;
     margin-top: -9px;
 }
 .back-btn {
@@ -41,4 +42,8 @@
 
 .separate {
     border-top: 1px solid rgba(22, 24, 35, 0.12);
+}
+
+.menu-scroll {
+    overflow-y: overlay;
 }

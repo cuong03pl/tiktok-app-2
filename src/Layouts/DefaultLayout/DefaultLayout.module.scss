@@ -1,0 +1,13 @@
+.wrapper {
+}
+
+.container {
+    height: 2000px;
+    display: flex;
+    width: 1150px;
+    max-width: 100%;
+    margin: auto;
+    padding: 0 24px 0 20px;
+    margin-top: var(--default-layout-header-height);
+    z-index: 9;
+}

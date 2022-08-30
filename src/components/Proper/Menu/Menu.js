@@ -1,17 +1,17 @@
 import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 import Tippy from '@tippyjs/react/headless';
-import { Wrapper as ProperWrapper } from '~/components/Proper';
+import PropTypes from 'prop-types';
+import { Wrapper as ProperWrapper } from '~/components/Proper/Proper';
 import MenuItem from './MenuItem.js';
 import Header from './Header';
 import { useState } from 'react';
 
 const cx = classNames.bind(styles);
-function Menu({ children, items = [], onChange }) {
+function Menu({ onChange, items, children }) {
     const [history, setHistory] = useState([{ data: items }]);
-
     const current = history[history.length - 1];
-    const renderItems = () => {
+    const handleRender = () => {
         return current.data.map((item, index) => {
             return (
                 <MenuItem
@@ -20,38 +20,37 @@ function Menu({ children, items = [], onChange }) {
                     onClick={() => {
                         if (item.children) {
                             setHistory((pre) => [...pre, item.children]);
-                        } else {
-                            onChange(item);
                         }
                     }}
-                />
+                ></MenuItem>
             );
         });
     };
     const handleBack = () => {
-        setHistory((pre) => pre.slice(0, history.length - 1));
+        setHistory((pre) => pre.slice(0, 1));
     };
+
     return (
         <Tippy
             interactive
-            offset={[16, 10]}
-            delay={[0, 700]}
-            placement="bottom-end"
+            delay={[50, 50]}
             render={(attrs) => (
                 <div className={cx('more-menu')} tabIndex="-1" {...attrs}>
                     <ProperWrapper className={cx('menu-wrapper')}>
-                        {history.length > 1 ? <Header onBack={handleBack} title={'Ngôn Ngữ'}></Header> : ''}
-                        {renderItems()}
+                        {history.length > 1 && <Header onBack={handleBack} title={current.title}></Header>}
+                        {handleRender()}
                     </ProperWrapper>
                 </div>
             )}
-            onHide={() => {
-                setHistory((pre) => pre.slice(0, 1));
-            }}
+            onHide={() => setHistory((pre) => pre.slice(0, 1))}
         >
             {children}
         </Tippy>
     );
 }
-
+Menu.propTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.array,
+    onChange: PropTypes.func,
+};
 export default Menu;
