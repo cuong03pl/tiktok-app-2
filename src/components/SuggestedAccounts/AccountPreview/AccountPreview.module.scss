@@ -1,0 +1,48 @@
+.wrapper {
+    padding: 20px;
+    width: 320px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+}
+.name {
+    color: #161823 !important;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    span {
+        margin-right: 4px;
+    }
+}
+.user-name {
+    color: #161823 !important;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 20px;
+}
+.description {
+    margin-top: 8px;
+}
+.des-number {
+    margin-right: 6px;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+.des-text {
+    margin-right: 12px;
+    color: #161823bf;
+}

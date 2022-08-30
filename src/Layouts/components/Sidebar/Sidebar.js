@@ -7,6 +7,7 @@ import {
     PeopleIcon,
     PeopleIconActive,
 } from '~/components/Icon/Icon';
+import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 import config from '~/config';
 import Menu from './Menu/Menu';
 import MenuItem from './Menu/MenuItem';
@@ -32,6 +33,8 @@ function Sidebar() {
                 />
                 <MenuItem title={'Live'} to={config.routes.live} icon={<LiveIcon />} activeIcon={<LiveIconActive />} />
             </Menu>
+            <SuggestedAccounts title={'Tài khoản được đề xuất'} />
+            <SuggestedAccounts title={'Đang follow'} />
         </aside>
     );
 }
