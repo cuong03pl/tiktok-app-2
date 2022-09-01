@@ -1,0 +1,24 @@
+.wrapper {
+    background: #ffffff;
+    padding: 48px 50px 0 50px;
+    border-radius: 8px;
+    position: relative;
+}
+.title {
+    font-size: 32px;
+    text-align: center;
+    margin: 16px 0;
+}
+
+.close-modal {
+    background-color: rgba(22, 24, 35, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}

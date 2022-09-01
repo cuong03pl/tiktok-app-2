@@ -17,6 +17,7 @@ function Button({
     followBtn,
     leftIcon,
     rightIcon,
+    loginItemBtn,
     small,
     big,
     flex,
@@ -30,6 +31,7 @@ function Button({
         disable,
         uploadBtn,
         followBtn,
+        loginItemBtn,
         small,
         big,
         flex: leftIcon || rightIcon,
@@ -44,7 +46,7 @@ function Button({
     }
     return (
         <Comp className={classes} {...props}>
-            {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+            {leftIcon && <span className={cx('icon', { leftIcon })}>{leftIcon}</span>}
             <span className={cx('title')}>{children}</span>
             {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
         </Comp>
@@ -58,6 +60,7 @@ Button.propsType = {
     round: PropTypes.bool,
     disable: PropTypes.bool,
     uploadBtn: PropTypes.bool,
+    loginItemBtn: PropTypes.bool,
     followBtn: PropTypes.bool,
     children: PropTypes.string.isRequired,
     leftIcon: PropTypes.node,

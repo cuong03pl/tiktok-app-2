@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets/img';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 // tippy
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -28,6 +28,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import Modal from '~/components/Modal/Modal';
+import ModalBox from '~/components/Modal/Modal';
+import LoginPopup from '~/components/LoginPopup/LoginPopup';
 
 const cx = classNames.bind(styles);
 
@@ -59,7 +62,7 @@ const MENU_ITEMS = [
         title: 'Phím tắt trên bàn phím',
     },
 ];
-const currentUser = true;
+const currentUser = false;
 function Header() {
     function handleMenuChange(menuItems) {
         console.log(menuItems);
@@ -88,6 +91,17 @@ function Header() {
             separate: true,
         },
     ];
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+        document.body.style.overflow = 'unset';
+    }
 
     return (
         <header className={cx('wrapper')}>
@@ -120,7 +134,10 @@ function Header() {
                             <Button uploadBtn leftIcon={<PlusIcon height="2rem" width="2rem" />}>
                                 Tải lên
                             </Button>
-                            <Button primary>Đăng nhập</Button>
+
+                            <Button onClick={openModal} primary>
+                                Đăng nhập
+                            </Button>
                         </Fragment>
                     )}
 
@@ -140,6 +157,10 @@ function Header() {
                     </Menu>
                 </div>
             </div>
+
+            <Modal isOpen={modalIsOpen}>
+                <LoginPopup onClick={closeModal} />
+            </Modal>
         </header>
     );
 }
